@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIH Clínica Pro — Apoyo Diagnóstico y Seguimiento Clínico en Adultos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0f766e; /* Verde clínico profundo */
+      --accent-hover: #115e59;
+      --accent-light: #ccfbf1;
+      --accent-contrast: #ffffff;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #bbf7d0;
+      --info: #1d4ed8;
+      --info-bg: #eff6ff;
+      --info-border: #bfdbfe;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f19;
+        --surface: #111827;
+        --surface-subtle: #1f2937;
+        --border: #374151;
+        --border-hover: #4b5563;
+        --text: #f9fafb;
+        --text-muted: #9ca3af;
+        --accent: #14b8a6;
+        --accent-hover: #2dd4bf;
+        --accent-light: #134e4a;
+        --accent-contrast: #042f2e;
+        --danger: #ef4444;
+        --danger-bg: #450a0a;
+        --danger-border: #7f1d1d;
+        --warning: #f59e0b;
+        --warning-bg: #451a03;
+        --warning-border: #78350f;
+        --success: #22c55e;
+        --success-bg: #052e16;
+        --success-border: #14532d;
+        --info: #3b82f6;
+        --info-bg: #172554;
+        --info-border: #1e3a8a;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 40px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top banner */
+    .top-banner {
+      background-color: var(--surface-subtle);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+      padding: 6px 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      gap: 16px;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.02em;
+    }
+    .nav-brand .badge {
+      font-size: 0.6875rem;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-contrast);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-subtle);
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+    .btn-sm { padding: 4px 10px; font-size: 0.75rem; }
+
+    /* Layout containers */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 72px 0 56px;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 32px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Trust banner */
+    .trust-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 24px;
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .trust-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Privacy Banner */
+    .privacy-alert {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      margin: 24px 0;
+      font-size: 0.875rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .privacy-alert strong { color: var(--text); }
+
+    /* Section headers */
+    .section-header {
+      margin-bottom: 32px;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-top: 4px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Forms */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full-width { grid-column: 1 / -1; }
+    label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .helper-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid;
+    }
+    .alert-danger { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger); }
+    .alert-warning { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning); }
+    .alert-success { background: var(--success-bg); border-color: var(--success-border); color: var(--success); }
+    .alert-info { background: var(--info-bg); border-color: var(--info-border); color: var(--info); }
+    .alert-text { color: var(--text); font-size: 0.8125rem; }
+
+    /* Badge & Indicators */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+    .status-red { background: var(--danger-bg); color: var(--danger); border-color: var(--danger-border); }
+    .status-amber { background: var(--warning-bg); color: var(--warning); border-color: var(--warning-border); }
+    .status-green { background: var(--success-bg); color: var(--success); border-color: var(--success-border); }
+    .status-blue { background: var(--info-bg); color: var(--info); border-color: var(--info-border); }
+    .status-gray { background: var(--surface-subtle); color: var(--text-muted); border-color: var(--border); }
+
+    /* Accordion */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .acc-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .acc-header {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      user-select: none;
+    }
+    .acc-header:hover { background: var(--surface-subtle); }
+    .acc-icon { transition: transform 0.2s ease; }
+    .acc-content {
+      padding: 16px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text);
+      display: none;
+    }
+    .acc-item.open .acc-content { display: block; }
+    .acc-item.open .acc-icon { transform: rotate(180deg); }
+
+    /* Step wizard */
+    .wizard-steps {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      background: var(--surface-subtle);
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+    }
+    .wizard-step {
+      flex: 1;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .wizard-step.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--surface);
+    }
+    .wizard-step.completed {
+      color: var(--success);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      text-align: left;
+    }
+    th, td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--surface-subtle);
+      font-weight: 600;
+      color: var(--text);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface-subtle); }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 24px;
+      margin-top: 16px;
+      border-left: 2px solid var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -31px;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--surface);
+    }
+    .timeline-date {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .timeline-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .kpi-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+    .kpi-value { font-size: 1.75rem; font-weight: 800; color: var(--text); margin-top: 4px; }
+    .kpi-sub { font-size: 0.6875rem; color: var(--text-muted); }
+
+    /* SVG Chart */
+    .chart-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8125rem;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+    }
+    .checklist-item input { width: auto; margin-top: 3px; }
+
+    /* Footer */
+    footer {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .navbar { flex-wrap: wrap; }
+      .nav-links { display: none; }
+      .nav-links.mobile-open { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- a) Barra de aviso superior -->
+  <aside class="top-banner" role="complementary" aria-label="Aviso normativo y clínico">
+    ⚠️ <strong>Aviso legal y profesional:</strong> Herramienta de apoyo al profesional sanitario; no sustituye el juicio clínico ni la norma técnica local aplicable. No aplica a recién nacidos ni exposición perinatal directa.
+  </aside>
+
+  <!-- b) Navbar fija -->
+  <header class="navbar" role="banner">
+    <div class="nav-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent)"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      <span>VIH Clínica Pro</span>
+      <span class="badge">Adultos</span>
+    </div>
+    <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+      <a href="#algoritmo">Algoritmo Diagnóstico</a>
+      <a href="#calculadora">Ventanas</a>
+      <a href="#pacientes">Pacientes</a>
+      <a href="#seguimiento">Seguimiento</a>
+      <a href="#tar-info">Esquemas TAR</a>
+      <a href="#protocolo">Guía y Fuentes</a>
+    </nav>
+    <div style="display: flex; gap: 8px;">
+      <button class="btn btn-primary btn-sm" onclick="scrollToRegister()">+ Nuevo paciente</button>
+      <button class="btn btn-secondary btn-sm" id="btnThemeToggle" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+
+    <!-- c) Hero Section -->
+    <section class="hero" id="hero">
+      <h1 class="hero-title">Identificación temprana y seguimiento integral del VIH en el adulto</h1>
+      <p class="hero-subtitle">
+        Herramienta clínica determinística basada en el algoritmo estándar 4.ª gen/diferenciador/ARN y guía primaria de seguimiento. Máxima privacidad del lado del cliente.
+      </p>
+      <div class="hero-actions">
+        <a href="#algoritmo" class="btn btn-primary">Iniciar tamizaje diagnóstico</a>
+        <a href="#protocolo" class="btn btn-secondary">Ver protocolo y fuentes</a>
+      </div>
+
+      <!-- d) Franja de confianza con iconos -->
+      <div class="trust-strip">
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">🔒</div>
+          <div>
+            <strong>Sin envío de datos</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted)">Cero telemetría ni servidores</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">📖</div>
+          <div>
+            <strong>Basado en guías citadas</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted)">NYSDOH 2026, HIVMA 2024, Saag 2021</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">⚡</div>
+          <div>
+            <strong>Funciona sin conexión</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted)">100% en el navegador local</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aviso de privacidad permanente y obligatorio -->
+    <div class="privacy-alert" role="alert">
+      <span style="font-size:1.25rem" aria-hidden="true">⚠️</span>
+      <div>
+        <strong>Aviso de confidencialidad y protección de datos:</strong>
+        No ingrese nombres, números de seguridad social ni datos que identifiquen directamente al paciente; use exclusivamente un <strong>folio o código alfanumérico anonimizado</strong>. Los datos permanecen únicamente en la memoria local (localStorage) de este navegador y <em>no están cifrados</em>.
+      </div>
+    </div>
+
+    <!-- MÓDULO 1: ALGORITMO DIAGNÓSTICO (ASISTENTE POR PASOS) -->
+    <section id="algoritmo">
+      <div class="section-header">
+        <div class="section-tag">Módulo 1</div>
+        <h2 class="section-title">Algoritmo Diagnóstico Estandarizado</h2>
+        <p class="section-desc">Secuencia de 3 pasos basada en inmunoensayo de 4.ª generación, diferenciador Ac VIH-1/2 y ARN-NAAT [NYSDOH-2026; SAAG-2021; MEDINA-2021; WILLIAMS-2023].</p>
+      </div>
+
+      <div class="card">
+        <!-- Configuraciones locales y contexto del paciente -->
+        <div class="form-grid" style="margin-bottom: 20px;">
+          <div class="form-group">
+            <label for="diagSospechaAguda">Sospecha clínica de Infección Aguda:</label>
+            <select id="diagSospechaAguda" onchange="actualizarAsistente()">
+              <option value="no">Sin sospecha aguda evidente</option>
+              <option value="si">Sospecha de Infección Aguda (Síntomas retrovirales / Exposición 10-33 d)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="diagExposicionPrev">Tratamiento o profilaxis previa:</label>
+            <select id="diagExposicionPrev" onchange="actualizarAsistente()">
+              <option value="ninguno">Ninguno / Sin exposición a antirretrovirales</option>
+              <option value="prep_oral">PrEP oral (TDF/FTC) ≤ 3 meses</option>
+              <option value="prep_inyec">PrEP inyectable (Cabotegravir LA) ≤ 12 meses</option>
+              <option value="pep">PEP reciente</option>
+              <option value="tar_temprano">TAR iniciado muy temprano</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="diagEmbarazo">Estado de embarazo:</label>
+            <select id="diagEmbarazo" onchange="actualizarAsistente()">
+              <option value="no">No gestante / No aplica</option>
+              <option value="si">Gestante (Embarazo en curso)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="normaWbToggle">Exigencia de Norma Local (InDRE / WB):</label>
+            <select id="normaWbToggle" onchange="actualizarAsistente()">
+              <option value="no">Algoritmo Internacional estándar (CDC / NYSDOH)</option>
+              <option value="si">Norma local exige Western Blot [MEDINA-2021]</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="alertaAgudaSimultanea" class="alert alert-warning" style="display:none">
+          <span aria-hidden="true">⚡</span>
+          <div class="alert-text">
+            <strong>Indicación de urgencia [NYSDOH A2]:</strong> Ante sospecha de infección aguda, solicitar <strong>ARN-NAAT y Ag/Ac de 4.ª gen simultáneamente</strong>, sin esperar el resultado serológico. Las pruebas rápidas de anticuerpos solas tienen alto riesgo de falso negativo [MEDINA-2021: 5 pruebas rápidas negativas con carga viral >3,000,000 copias/mL].
+          </div>
+        </div>
+
+        <!-- Wizard Nav -->
+        <div class="wizard-steps" role="tablist" aria-label="Pasos diagnósticos">
+          <div class="wizard-step active" id="wizStep1">Paso 1: Inmunoensayo 4.ª Gen</div>
+          <div class="wizard-step" id="wizStep2">Paso 2: Diferenciador Ac 1/2</div>
+          <div class="wizard-step" id="wizStep3">Paso 3: ARN-NAAT Diagnóstico</div>
+        </div>
+
+        <!-- Paso 1 -->
+        <div id="boxStep1">
+          <div class="form-group">
+            <label for="step1Result">Resultado del Inmunoensayo de Laboratorio Ag/Ac (4.ª Generación) [NYSDOH A1]:</label>
+            <select id="step1Result" onchange="evaluarAlgoritmo()">
+              <option value="">-- Seleccionar resultado --</option>
+              <option value="no_reactivo">No reactivo (Negativo)</option>
+              <option value="reactivo">Reactivo (Preliminar positivo)</option>
+            </select>
+            <span class="helper-text">Detecta anticuerpos IgG/IgM contra VIH-1/2 y antígeno libre p24 en suero o plasma.</span>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div id="boxStep2" style="display:none; margin-top:16px;">
+          <div class="form-group">
+            <label for="step2Result">Paso 2: Ensayo Diferenciador de Anticuerpos VIH-1 / VIH-2 [NYSDOH A1]:</label>
+            <select id="step2Result" onchange="evaluarAlgoritmo()">
+              <option value="">-- Seleccionar resultado --</option>
+              <option value="vih1_pos">Reactivo a anticuerpos VIH-1 únicamente</option>
+              <option value="vih2_pos">Reactivo a anticuerpos VIH-2 únicamente</option>
+              <option value="ambos_pos">Reactivo a ambos (VIH-1 y VIH-2 positivo / No tipificado)</option>
+              <option value="no_reactivo">No reactivo a anticuerpos (Negativo)</option>
+              <option value="indeterminado">Indeterminado (Reactividad parcial que no cumple criterio)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div id="boxStep3" style="display:none; margin-top:16px;">
+          <div class="form-group">
+            <label for="step3Result">Paso 3: Ensayo de Ácidos Nucleicos ARN-NAAT (Cualitativo/Diagnóstico) [NYSDOH A1]:</label>
+            <select id="step3Result" onchange="evaluarAlgoritmo()">
+              <option value="">-- Seleccionar resultado --</option>
+              <option value="arn_detectado">ARN Detectado (Positivo)</option>
+              <option value="arn_no_detectado">ARN NO detectado (Negativo / Indetectable)</option>
+              <option value="arn_cuant_bajo">ARN Cuantitativo bajo (< 200 copias/mL sin evidencia serológica)</option>
+              <option value="arn_cuant_alto">ARN Cuantitativo ≥ 200 copias/mL con tamizaje negativo o indeterminado</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Paso adicional condicional: Western Blot si norma local exige -->
+        <div id="boxStepWB" style="display:none; margin-top:16px; border-left: 3px solid var(--warning); padding-left:12px;">
+          <div class="form-group">
+            <label for="stepWbResult">Paso adicional normativo local: Western Blot (InDRE 2017) [MEDINA-2021]:</label>
+            <select id="stepWbResult" onchange="evaluarAlgoritmo()">
+              <option value="wb_neg">WB Negativo (Sin bandas de envelope/gag/pol)</option>
+              <option value="wb_ind">WB Indeterminado (Bandas parciales)</option>
+              <option value="wb_pos">WB Positivo (Criterio CDC: ≥2 bandas gp160/120, gp41, p24)</option>
+            </select>
+            <span class="helper-text" style="color:var(--danger)">
+              * RECORDATORIO CRÍTICO: El Western Blot NUNCA debe usarse para descartar una prueba de 4.ª generación reactiva ni retrasar el manejo ante sospecha de infección aguda [MEDINA-2021].
+            </span>
+          </div>
+        </div>
+
+        <!-- Conclusión diagnóstica del algoritmo -->
+        <div id="resultadoDiagnosticoBox" style="margin-top:24px; display:none;"></div>
+
+      </div>
+    </section>
+
+    <!-- VENTANAS DIAGNÓSTICAS Y CALCULADORA -->
+    <section id="calculadora">
+      <div class="section-header">
+        <div class="section-tag">Herramienta Interactiva</div>
+        <h2 class="section-title">Calculadora de Ventanas Diagnósticas</h2>
+        <p class="section-desc">Cálculo de confiabilidad según tiempo post-exposición y tecnología analítica [NYSDOH-2026 Tabla 2 p.8; WILLIAMS-2023 p.612; SAAG-2021].</p>
+      </div>
+
+      <div class="card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="calcFechaExpo">Fecha de la presunta exposición de riesgo:</label>
+            <input type="date" id="calcFechaExpo" onchange="calcularVentana()">
+          </div>
+          <div class="form-group">
+            <label for="calcTipoPrueba">Tipo de prueba realizada o considerada:</label>
+            <select id="calcTipoPrueba" onchange="calcularVentana()">
+              <option value="naat">ARN-NAAT / Detección viral directa (10 a 33 días)</option>
+              <option value="cuarta_lab">Ag/Ac 4.ª gen laboratorio en suero/plasma (18 a 45 días)</option>
+              <option value="poc_combo">Ag/Ac POC punción digital rápida (18 a 90 días)</option>
+              <option value="ac_poc">Anticuerpos solos / Autoprueba / 3.ª gen (23 a 90 días)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="calcResultado" style="margin-top:16px; display:none;"></div>
+
+        <!-- Nota de actualización de legado vs consenso actual -->
+        <div class="alert alert-info" style="margin-top: 16px;">
+          <span aria-hidden="true">📌</span>
+          <div class="alert-text">
+            <strong>Nota de actualización metodológica:</strong> La literatura histórica [GARCÍA-2011 legado, p.298] citaba un acortamiento del periodo ventana a 13-15 días para ELISA de 4.ª gen. Las directrices y consensos vigentes [NYSDOH-2026 Tabla 2; WILLIAMS-2023 p.612] establecen la ventana para 4.ª generación en <strong>18 a 45 días</strong> (mediana 18 d, percentil 99 ≈44 d). En caso de discordancia o segunda ventana, prevalece la definición moderna y el apoyo con NAAT.
+          </div>
+        </div>
+
+        <!-- Tabla de referencia rápida de ventanas -->
+        <div class="table-container">
+          <caption style="text-align:left; font-weight:600; padding:8px 0;">Referencia comparativa de ventanas diagnósticas [NYSDOH Tabla 2 p.8; WILLIAMS p.612]</caption>
+          <table>
+            <thead>
+              <tr>
+                <th>Tecnología analítica</th>
+                <th>Rango de ventana (días)</th>
+                <th>Mediana aproximada</th>
+                <th>Consideraciones clínicas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ARN-NAAT (Cualitativo/Diagnóstico)</strong></td>
+                <td>10 – 33 días</td>
+                <td>11.5 días</td>
+                <td>Primer marcador detectable tras el periodo de eclipse sistémico (día 5-10).</td>
+              </tr>
+              <tr>
+                <td><strong>Ag/Ac 4.ª Gen Laboratorio (Suero/Plasma)</strong></td>
+                <td>18 – 45 días</td>
+                <td>18 días (P99: 44.3 d)</td>
+                <td>Estándar inicial. RU/UE/CDC recomiendan 45 d para descarte definitivo.</td>
+              </tr>
+              <tr>
+                <td><strong>Ag/Ac POC Punción digital (Sangre total)</strong></td>
+                <td>18 – 90 días</td>
+                <td>~24 – 30 días</td>
+                <td>Menos sensible que venopunción para detectar antígeno p24 inicial.</td>
+              </tr>
+              <tr>
+                <td><strong>Anticuerpos solos / Autopruebas orales o sangre</strong></td>
+                <td>23 – 90 días</td>
+                <td>~30 días</td>
+                <td>Requiere hasta 90 días para excluir infección con alta certeza.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2: REGISTRO DEL PACIENTE Y CONSEJERÍA -->
+    <section id="pacientes">
+      <div class="section-header">
+        <div class="section-tag">Módulo 2</div>
+        <h2 class="section-title">Registro del Paciente y Checklist de Consejería</h2>
+        <p class="section-desc">Entorno de registro estrictamente anonimizado mediante folio clínico [MEDINA-2021; NYSDOH-2026].</p>
+      </div>
+
+      <div class="card">
+        <form id="patientForm" onsubmit="guardarPaciente(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="pFolio">Folio / Código Anonimizado (*):</label>
+              <input type="text" id="pFolio" required placeholder="Ej. PAC-2026-001" autocomplete="off">
+              <span class="helper-text">Prohibido nombres, apellidos o datos directos.</span>
+            </div>
+            <div class="form-group">
+              <label for="pEdad">Edad cumplida (Años) (*):</label>
+              <input type="number" id="pEdad" required min="18" max="110" placeholder="≥ 18 años">
+              <span class="helper-text">Adultos únicamente [HIVMA Tabla 4].</span>
+            </div>
+            <div class="form-group">
+              <label for="pFechaExpo">Fecha de exposición o inicio de síntomas:</label>
+              <input type="date" id="pFechaExpo">
+            </div>
+            <div class="form-group">
+              <label for="pGestacion">Embarazo:</label>
+              <select id="pGestacion">
+                <option value="no">No</option>
+                <option value="si">Sí (Gestante)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="pPrEP">Uso previo de PrEP / PEP / TAR:</label>
+              <select id="pPrEP">
+                <option value="ninguno">Ninguno</option>
+                <option value="prep_oral">PrEP Oral (TDF/FTC)</option>
+                <option value="prep_inyec">PrEP Inyectable (Cabotegravir LA)</option>
+                <option value="pep">PEP reciente</option>
+                <option value="tar">TAR previo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="pEstadoDiag">Estado Diagnóstico Determinado:</label>
+              <select id="pEstadoDiag">
+                <option value="en_diagnostico">En proceso de diagnóstico / Pendiente</option>
+                <option value="confirmado_vih1">Confirmado VIH-1 (Crónico o Agudo)</option>
+                <option value="confirmado_vih2">Confirmado VIH-2</option>
+                <option value="no_infectado">Descartado / No infectado</option>
+                <option value="indeterminado">Inconcluso / Muestra indeterminada</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="pSintomas">Síntomas / Hallazgos relevantes (Ej. Síndrome retroviral agudo):</label>
+              <input type="text" id="pSintomas" placeholder="Fiebre, adenopatías cervicales, faringitis, exantema, trombocitopenia...">
+            </div>
+          </div>
+
+          <!-- Checklist de consejería -->
+          <div style="margin-top:20px;">
+            <label style="font-size:0.875rem;">Checklist Clínico de Consejería y Proceso [MEDINA-2021; NYSDOH Tabla 1]:</label>
+            <div class="checklist">
+              <label class="checklist-item">
+                <input type="checkbox" id="chkOrdenConsent">
+                <span>Orden médica y consentimiento informado completados [MEDINA-2021].</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="chkResultadoInf">
+                <span>Resultado explicado en forma comprensible y empática.</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="chkTransmision">
+                <span>Consejería de prevención de transmisión y mensaje I=I explicado [HIVMA; SAAG].</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="chkVinculacion">
+                <span>Cita de atención médica basal agendada (< 7 días) [HIVMA].</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="chkInconcluso">
+                <span>Si el resultado es inconcluso: cita para nueva muestra y repetición del algoritmo.</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; display:flex; gap:12px; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary">Guardar en Base Local</button>
+            <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- MÓDULO 3: VINCULACIÓN Y SEGUIMIENTO -->
+    <section id="seguimiento">
+      <div class="section-header">
+        <div class="section-tag">Módulo 3</div>
+        <h2 class="section-title">Vinculación a la Atención y Seguimiento Longitudinal</h2>
+        <p class="section-desc">Monitorización clínica, tabla de pacientes con semáforo, cálculo automático de fechas y panel de indicadores [HIVMA-2024; SAAG-2021].</p>
+      </div>
+
+      <!-- Panel de indicadores locales (KPIs) -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Pacientes Registrados</div>
+          <div class="kpi-value" id="kpiTotal">0</div>
+          <div class="kpi-sub">Total en localStorage</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Citas de Control Vencidas</div>
+          <div class="kpi-value" id="kpiVencidas" style="color:var(--danger)">0</div>
+          <div class="kpi-sub">Requieren llamada/búsqueda</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Supresión Viral (< 200 copias)</div>
+          <div class="kpi-value" id="kpiSupresion" style="color:var(--success)">0%</div>
+          <div class="kpi-sub">De pacientes en TAR con CV</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Días prom. Diagnóstico → TAR</div>
+          <div class="kpi-value" id="kpiDiasTar">--</div>
+          <div class="kpi-sub">Meta: ≤ 7 días [HIVMA]</div>
+        </div>
+      </div>
+
+      <!-- Gráfico simple en SVG nativo -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-title">Distribución Viropológica y Retención Clínica</div>
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-around;">
+          <svg id="svgChart" width="280" height="140" aria-label="Gráfico de estado de carga viral" role="img" style="overflow:visible;"></svg>
+          <div style="font-size:0.8125rem; color:var(--text-muted); max-width:320px;">
+            <p><strong>Meta clínica 95-95-95:</strong> Mantener al >90% de pacientes con carga viral suprimida (&lt;200 copias/mL) garantiza el principio <strong>I=I (Indetectable = Intransmisible)</strong> y previene mutaciones de resistencia [SAAG p.2138; HIVMA 2024].</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros y acciones de datos -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <input type="text" id="filtroBusqueda" placeholder="Buscar por folio..." oninput="renderizarTablaPacientes()" style="width:200px;">
+            <select id="filtroEstado" onchange="renderizarTablaPacientes()" style="width:200px;">
+              <option value="todos">Todos los estados</option>
+              <option value="en_diagnostico">En diagnóstico</option>
+              <option value="en_vinculacion">En vinculación</option>
+              <option value="en_seguimiento">En seguimiento</option>
+              <option value="cita_vencida">Cita vencida</option>
+              <option value="falla_virologica">Falla virológica</option>
+              <option value="perdida_seguimiento">Posible pérdida de seguimiento</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-secondary btn-sm" onclick="exportarJSON()">Exportar JSON</button>
+            <button class="btn btn-secondary btn-sm" onclick="exportarCSV()">Exportar CSV</button>
+            <label class="btn btn-secondary btn-sm" style="margin-bottom:0; cursor:pointer;">
+              Importar JSON <input type="file" id="fileImport" accept=".json" style="display:none;" onchange="importarJSON(event)">
+            </label>
+            <button class="btn btn-danger btn-sm" onclick="borrarTodosLosDatos()">Borrar Todo</button>
+          </div>
+        </div>
+
+        <!-- Tabla interactiva con semáforos -->
+        <div class="table-container">
+          <table id="tablaPacientes">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Edad / Condición</th>
+                <th>Diagnóstico</th>
+                <th>TAR / Días inicio</th>
+                <th>Última CV / CD4</th>
+                <th>Estado / Semáforo</th>
+                <th>Próxima Cita</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaPacientesBody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Detalle, edición clínica y línea de tiempo del paciente seleccionado -->
+      <div id="detallePacienteCard" class="card" style="display:none;">
+        <div class="card-title">
+          <span>Expediente de Seguimiento: <strong id="detFolio">--</strong></span>
+          <button class="btn btn-secondary btn-sm" onclick="cerrarDetalle()">Cerrar detalle</button>
+        </div>
+
+        <div class="form-grid" style="margin-bottom:16px;">
+          <div class="form-group">
+            <label for="evFechaTar">Fecha de inicio de TAR:</label>
+            <input type="date" id="evFechaTar">
+          </div>
+          <div class="form-group">
+            <label for="evEsquemaTar">Esquema prescrito (Ver Módulo 4):</label>
+            <input type="text" id="evEsquemaTar" placeholder="Ej. BIC/FTC/TAF o DTG + TDF/3TC">
+          </div>
+          <div class="form-group">
+            <label for="evCargaViral">Última Carga Viral (copias/mL):</label>
+            <input type="number" id="evCargaViral" placeholder="Ej. 0, 50, 450, 100000">
+          </div>
+          <div class="form-group">
+            <label for="evFechaCv">Fecha de la Carga Viral:</label>
+            <input type="date" id="evFechaCv">
+          </div>
+          <div class="form-group">
+            <label for="evCd4">Recuento CD4 (células/µL):</label>
+            <input type="number" id="evCd4" placeholder="Ej. 450">
+          </div>
+          <div class="form-group">
+            <label for="evFechaCita">Próxima cita agendada:</label>
+            <input type="date" id="evFechaCita">
+          </div>
+          <div class="form-group full-width">
+            <label for="evGenotipo">Genotipo de resistenciasbasal o por falla:</label>
+            <input type="text" id="evGenotipo" placeholder="Mutaciones PR/RT/INSTI identificadas...">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <button class="btn btn-primary btn-sm" onclick="guardarEventosSeguimiento()">Actualizar expediente</button>
+          <button class="btn btn-secondary btn-sm" onclick="calcularSiguientesControles()">Calcular ventanas de control sugeridas</button>
+        </div>
+
+        <!-- Alertas de seguimiento automáticas -->
+        <div id="alertasSeguimientoBox" style="margin-top:16px;"></div>
+
+        <!-- Checklist de evaluación basal [HIVMA Tablas 1 y 4] -->
+        <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px;">
+          <label style="font-weight:600; font-size:0.875rem;">Checklist de Evaluación Basal [HIVMA Tablas 1 y 4; SAAG Tabla 1]:</label>
+          <div class="checklist" id="checklistBasalEditable">
+            <!-- Renderizado interactivo -->
+          </div>
+        </div>
+
+        <!-- Línea de tiempo visual del paciente -->
+        <div style="margin-top:24px; border-top:1px solid var(--border); padding-top:16px;">
+          <label style="font-weight:600; font-size:0.875rem;">Línea de tiempo cronológica:</label>
+          <div class="timeline" id="lineaTiempo">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 4: TARJETA INFORMATIVA DE SOLO LECTURA - ESQUEMAS DE TAR -->
+    <section id="tar-info">
+      <div class="section-header">
+        <div class="section-tag">Módulo 4 (Solo lectura)</div>
+        <h2 class="section-title">Esquemas Iniciales de Tratamiento Antirretroviral (TAR)</h2>
+        <p class="section-desc">Referencia informativa estrictamente no prescriptiva para personas adultas con diagnóstico de infección confirmado [SAAG-2021 Tabla 2 p.2139].</p>
+      </div>
+
+      <!-- Tarjeta informativa fija -->
+      <div class="alert alert-warning" role="note">
+        <span aria-hidden="true">⚠️</span>
+        <div class="alert-text">
+          <strong>Referencia informativa:</strong> No es una prescripción ni sustituye la guía nacional vigente. Datos procedentes de las recomendaciones internacionales revisadas por Saag MS (2021); verificar su vigencia clínica y disponibilidad regulatoria antes de su uso.
+        </div>
+      </div>
+
+      <div class="card" id="tarContainer">
+        <div id="tarLockMessage" style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:8px; color:var(--text-muted);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p style="font-weight:600;">Sección bloqueada por seguridad clínica</p>
+          <p style="font-size:0.8125rem;">Esta tarjeta se habilita únicamente cuando se confirma un paciente con diagnóstico reactivo/positivo en el Módulo 1 o en la tabla de pacientes seleccionada.</p>
+          <button class="btn btn-secondary btn-sm" style="margin-top:12px;" onclick="forzarAperturaTar()">Visualizar referencia informativa general</button>
+        </div>
+
+        <div id="tarContentBox" style="display:none;">
+          <div class="alert alert-danger" style="margin-bottom:16px;">
+            <span aria-hidden="true">🚨</span>
+            <div class="alert-text">
+              <strong>Situaciones especiales de derivación inmediata:</strong> En caso de infección por <strong>VIH-2, embarazo activo o sospecha de infecciones oportunistas graves del SNC</strong> (meningitis criptocócica o tuberculosa), la elección queda <em>fuera del alcance de esta fuente general</em>. Derivar de inmediato a especialista o guía específica [HIVMA; SAAG p.2135].
+            </div>
+          </div>
+
+          <div class="alert alert-info" style="margin-bottom:16px;">
+            <span aria-hidden="true">🔬</span>
+            <div class="alert-text">
+              <strong>Alerta cruzada antes de la 1.ª dosis:</strong> Confirmar el diagnóstico mediante algoritmo estandarizado y <strong>tomar las muestras basales (Carga viral de ARN y genotipo)</strong> antes de ingerir el fármaco, ya que el TAR muy temprano puede alterar las pruebas diagnósticas y suprimir marcadores [WILLIAMS p.614; HIVMA Tabla 4].
+            </div>
+          </div>
+
+          <p style="font-size:0.875rem; margin-bottom:16px;">
+            <strong>Principios de selección en inicio rápido [SAAG p.2135]:</strong> Se recomienda un esquema basado en un inhibidor de la transferencia de la cadena de integrasa (INSTI) de alta barrera genética más dos inhibidores de la transcriptasa inversa análogos de los nucleósidos (ITIAN: TDF o TAF más FTC o 3TC). En la primera visita, al no disponer de laboratorios basales (VHB, función renal, genotipo), limitar a <strong>Bictegravir–FTC–TAF</strong> o <strong>Dolutegravir + (TAF/FTC o TDF/FTC o TDF/3TC)</strong>.
+          </p>
+
+          <div class="accordion" role="region" aria-label="Esquemas antirretrovirales">
+            <!-- Esquema 1 -->
+            <div class="acc-item">
+              <div class="acc-header" onclick="toggleAcc(this)">
+                <span>1. Bictegravir–FTC–TAF (50 mg / 200 mg / 25 mg)</span>
+                <span class="acc-icon">▼</span>
+              </div>
+              <div class="acc-content">
+                <p><strong>Pauta:</strong> Una tableta coformulada, una vez al día.</p>
+                <p><strong>Efectos adversos descritos:</strong> Síntomas gastrointestinales (náusea, diarrea), cefalea, síndrome inflamatorio de reconstitución inmune (SIRI/IRIS), esteatosis hepática / acidosis láctica.</p>
+                <p><strong>Advertencias de la fuente [SAAG Tabla 2]:</strong> No recomendado con depuración de creatinina &lt;30 mL/min ni en insuficiencia hepática Child-Pugh C. Contraindicado con dofetilida y rifampicina. Evitar cationes polivalentes (Ca, Mg, Fe), fenitoína, carbamazepina y rifapentina. Precaución con metformina.</p>
+              </div>
+            </div>
+
+            <!-- Esquema 2 -->
+            <div class="acc-item">
+              <div class="acc-header" onclick="toggleAcc(this)">
+                <span>2. Dolutegravir (50 mg) + Base de 2 ITIAN</span>
+                <span class="acc-icon">▼</span>
+              </div>
+              <div class="acc-content">
+                <p><strong>Pauta:</strong> Dolutegravir 50 mg una vez al día, más una de las siguientes combinaciones:</p>
+                <ul style="margin-left: 20px; margin-top: 4px;">
+                  <li><strong>TAF–FTC (25 mg / 200 mg):</strong> una vez al día, tableta única.</li>
+                  <li><strong>TDF–FTC (300 mg / 200 mg):</strong> una vez al día, tableta única.</li>
+                  <li><strong>TDF–3TC (300 mg / 300 mg):</strong> tabletas individuales, una vez al día.</li>
+                </ul>
+                <p style="margin-top:8px;"><strong>Advertencias de la fuente:</strong> No recomendado con depuración de creatinina &lt;30 mL/min o Child-Pugh B o C (para las combinaciones con TDF/TAF). Contraindicado con dofetilida. Evitar cationes divalentes; precaución con metformina.</p>
+              </div>
+            </div>
+
+            <!-- Esquema 3 -->
+            <div class="acc-item">
+              <div class="acc-header" onclick="toggleAcc(this)">
+                <span>3. Dolutegravir–3TC (50 mg / 300 mg) — Biterapia restringida</span>
+                <span class="acc-icon">▼</span>
+              </div>
+              <div class="acc-content">
+                <p><strong>Pauta:</strong> Una tableta coformulada, una vez al día.</p>
+                <p><strong>RESTRICCIONES ESTRICTAS [SAAG Tabla 2 p.2139]:</strong> <em>NO usar en inicio rápido</em>, ni en presencia de mutación M184V/M184I (resistencia a lamivudina), infección concomitante por VHB, carga viral inicial &gt;500,000 copias/mL o recuento CD4 &lt;200 células/mm³. Suele emplearse como estrategia de simplificación tras al menos 12 semanas de inducción con un esquema de 3 fármacos.</p>
+              </div>
+            </div>
+
+            <!-- Esquema 4 -->
+            <div class="acc-item">
+              <div class="acc-header" onclick="toggleAcc(this)">
+                <span>4. Raltegravir (600 mg) + Base de 2 ITIAN</span>
+                <span class="acc-icon">▼</span>
+              </div>
+              <div class="acc-content">
+                <p><strong>Pauta:</strong> Dos tabletas de 600 mg (1200 mg total) una vez al día (o 400 mg dos veces al día), más TAF/FTC, TDF/FTC o TDF/3TC.</p>
+                <p><strong>Advertencias de la fuente:</strong> Presenta una barrera genética menor a la resistencia en comparación con bictegravir o dolutegravir. Mismas precauciones sobre función renal y cationes polivalentes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUÍA DEL PROTOCOLO (ACORDEÓN EXTENSO) -->
+    <section id="protocolo">
+      <div class="section-header">
+        <div class="section-tag">Directrices de Soporte</div>
+        <h2 class="section-title">Guía del Protocolo Clínico y Situaciones Especiales</h2>
+        <p class="section-desc">Ventanas diagnósticas, interpretación de discrepancias, situaciones complejas y periodicidad de tamizaje.</p>
+      </div>
+
+      <div class="accordion" role="region" aria-label="Protocolo clínico">
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span>1. Situaciones especiales: PrEP/PEP previo, segunda ventana y controladores de élite</span>
+            <span class="acc-icon">▼</span>
+          </div>
+          <div class="acc-content">
+            <p><strong>Uso de PrEP/PEP/TAR muy temprano:</strong> Provoca seroconversión demorada y cargas virales de ARN bajas o intermitentemente indetectables [WILLIAMS pp.613-614]. Con cabotegravir inyectable de acción prolongada, el retraso diagnóstico puede prolongarse de 4 a 26 semanas (frente a 1-12 semanas con TDF/FTC oral) [NYSDOH p.15]. En caso de sospecha clínica, solicitar ARN y anticuerpos, y verificar con repetición longitudinal [HIVMA Tabla 4].</p>
+            <p style="margin-top:8px;"><strong>Fenómeno de la segunda ventana diagnóstica:</strong> En ensayos de 4.ª generación, se ha observado un periodo transitorio de no reactividad (hasta 28 días) en el que el antígeno p24 declina antes de que los anticuerpos alcancen el límite de detección; se resuelve mediante ARN-NAAT [WILLIAMS p.614].</p>
+            <p style="margin-top:8px;"><strong>Controladores de élite:</strong> Pacientes con inmunoensayo reactivo y carga viral plasmática persistentemente indetectable sin tratamiento antirretroviral (&lt;1% de los pacientes). El diagnóstico requiere seguimiento longitudinal o detección de ADN proviral [WILLIAMS p.614; SAAG p.2135].</p>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span>2. Causas biológicas de falsos positivos y falsos negativos</span>
+            <span class="acc-icon">▼</span>
+          </div>
+          <div class="acc-content">
+            <p><strong>Falsos positivos del tamizaje:</strong> Errores técnicos o de etiquetado, participación en ensayos de vacunas contra VIH, anticuerpos inducidos por embarazo, hipergammaglobulinemia, enfermedades autoinmunes (lupus), reactividad cruzada tras vacunas recientes (influenza) o infecciones agudas intercurrentes (VEB, malaria, leucemia) [NYSDOH Box 1; WILLIAMS].</p>
+            <p style="margin-top:8px;"><strong>Falsos negativos:</strong> Prueba efectuada durante el periodo de eclipse sistémico o antes de finalizar la ventana diagnóstica, retraso por PrEP/PEP o TAR hipertemprano, inmunodeficiencia humoral grave / hipogammaglobulinemia, o saturación por complejos inmunes antígeno-anticuerpo [NYSDOH Box 1].</p>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span>3. Detección y manejo de la infección por VIH-2</span>
+            <span class="acc-icon">▼</span>
+          </div>
+          <div class="acc-content">
+            <p>Infección endémica originaria de África Occidental, con menor transmisibilidad pero refractariedad intrínseca a los fármacos no nucleósidos (NNRTI). Ante resultados indeterminados en la prueba diferenciadora o reactividad cruzada VIH-1/2 simultánea, solicitar prueba molecular específica para ARN de VIH-2 o derivar la muestra a laboratorio de referencia [WILLIAMS p.614; NYSDOH-2026].</p>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span>4. Criterios de repetición y periodicidad de tamizaje</span>
+            <span class="acc-icon">▼</span>
+          </div>
+          <div class="acc-content">
+            <ul style="margin-left:20px;">
+              <li><strong>Población general sexualmente activa:</strong> Al menos una vez en la vida; evaluar riesgo anualmente [NYSDOH A3].</li>
+              <li><strong>Riesgo continuo elevado:</strong> Personas con múltiples parejas sexuales, diagnóstico de ITS en el último año, uso de drogas inyectadas o intercambio de sexo por dinero/insumos: ofrecer tamizaje cada <strong>3 a 6 meses</strong> [NYSDOH A3].</li>
+              <li><strong>Usuarios en PrEP:</strong> PrEP oral cada 3 meses; PrEP inyectable en cada visita de inyección bimensual [NYSDOH A3; HIVMA].</li>
+              <li><strong>Seguimiento tras PEP:</strong> Prueba diagnóstica a los 45 días tras concluir el curso de 28 días (criterio Reino Unido) o a los 3 meses (CDC/EE. UU.) [WILLIAMS p.617].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUENTES Y TRAZABILIDAD -->
+    <section id="fuentes">
+      <div class="section-header">
+        <div class="section-tag">Evidencia y Metodología</div>
+        <h2 class="section-title">Fuentes Científicas y Trazabilidad de Reglas</h2>
+        <p class="section-desc">Mapeo de reglas clínicas contra las fuentes jerarquizadas obligatorias.</p>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Módulo / Regla Implementada</th>
+              <th>Documento Fuente</th>
+              <th>Localización</th>
+              <th>Nivel de Evidencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Inmunoensayo 4.ª gen como paso inicial</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>Fig. 2 p.11; p.12</td>
+              <td>A2</td>
+            </tr>
+            <tr>
+              <td>Solicitud simultánea de ARN-NAAT si hay sospecha aguda</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>p.2, p.13</td>
+              <td>A2</td>
+            </tr>
+            <tr>
+              <td>Falso negativo de pruebas rápidas en infección aguda</td>
+              <td>Medina-De la Garza CE et al. (2021)</td>
+              <td>IDCases 25:e01168</td>
+              <td>Reporte de caso / Revisión</td>
+            </tr>
+            <tr>
+              <td>Diferenciador VIH-1/2 confirmatorio tras 4.ª gen reactiva</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>Fig. 2 p.11; p.14</td>
+              <td>A1</td>
+            </tr>
+            <tr>
+              <td>Resolución con ARN-NAAT ante diferenciador indeterminado</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>Fig. 2; Box 2 p.17</td>
+              <td>A1 / A*</td>
+            </tr>
+            <tr>
+              <td>Carga viral ≥200 cp/mL presuntiva de aguda sin anticuerpos</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>Box 2 p.17</td>
+              <td>A2</td>
+            </tr>
+            <tr>
+              <td>Repetición en 1-2 sem si ARN &lt;200 cp/mL sin anticuerpos</td>
+              <td>NYSDOH AIDS Institute (2026)</td>
+              <td>Box 2 p.17</td>
+              <td>A2</td>
+            </tr>
+            <tr>
+              <td>Ventana 4.ª generación 18–45 días (mediana 18, P99 44.3 d)</td>
+              <td>Williams E et al. (2023) / NYSDOH (2026)</td>
+              <td>Pathology p.612; Tabla 2 p.8</td>
+              <td>Revisión contemporánea</td>
+            </tr>
+            <tr>
+              <td>Retraso diagnóstico por PrEP inyectable (CAB-LA: 4-26 sem)</td>
+              <td>NYSDOH (2026) / Williams (2023)</td>
+              <td>p.15; pp.613-614</td>
+              <td>Evidencia de cohortes</td>
+            </tr>
+            <tr>
+              <td>Inicio rápido de TAR (mismo día o &le;7 días)</td>
+              <td>HIVMA / IDSA (Horberg, Thompson 2024)</td>
+              <td>Recomendaciones p.3, p.5</td>
+              <td>Guía de práctica clínica</td>
+            </tr>
+            <tr>
+              <td>Toma basal de ARN y genotipo antes de la primera dosis</td>
+              <td>Williams (2023) / HIVMA (2024)</td>
+              <td>p.614; Tabla 4 p.10</td>
+              <td>Recomendación clínica</td>
+            </tr>
+            <tr>
+              <td>Falla virológica: 2 valores consecutivos &gt;200 copias/mL</td>
+              <td>HIVMA / IDSA (2024)</td>
+              <td>p.16; Tabla 5</td>
+              <td>Consenso clínico</td>
+            </tr>
+            <tr>
+              <td>Supresión viral e intransmisibilidad (&lt;200 copias/mL: I=I)</td>
+              <td>HIVMA (2024) / Saag (2021)</td>
+              <td>p.3; p.2132</td>
+              <td>Evidencia científica consolidada</td>
+            </tr>
+            <tr>
+              <td>Esquemas iniciales triples basados en INSTI</td>
+              <td>Saag MS (NEJM 2021)</td>
+              <td>Texto p.2135; Tabla 2 p.2139</td>
+              <td>Revisión de guías IAS-USA/HHS</td>
+            </tr>
+            <tr>
+              <td>Restricciones estrictas para DTG-3TC en biterapia</td>
+              <td>Saag MS (NEJM 2021)</td>
+              <td>Tabla 2 p.2139</td>
+              <td>Revisión de ensayos clínicos</td>
+            </tr>
+            <tr>
+              <td>Umbral institucional de pérdida de seguimiento (&gt;90 días)</td>
+              <td>Definición institucional configurable</td>
+              <td>Parámetro del sistema</td>
+              <td><strong>[FALTA EN FUENTES]</strong></td>
+            </tr>
+            <tr>
+              <td>Ventana histórica de 13-15 días (referencia secundaria)</td>
+              <td>García F et al. (2011)</td>
+              <td>Enferm Infecc Microbiol Clin p.298</td>
+              <td>Legado (Superado por 2026)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:24px; font-size:0.8125rem;">
+        <h4 style="font-weight:700; margin-bottom:8px;">Referencias Bibliográficas Completas:</h4>
+        <ol style="margin-left:20px; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;">
+          <li><strong>[MEDINA-2021]</strong> Medina-De la Garza CE, Castro-Corona MA, Salinas-Carmona MC. Near misdiagnosis of acute HIV-infection with ELISA-Western Blot scheme: Time for mindset change. <em>IDCases</em> 2021;25:e01168.</li>
+          <li><strong>[WILLIAMS-2023]</strong> Williams E, Moso M, Lim C, Chibo D, Nicholson S, Jackson K, Williamson DA. Laboratory diagnosis of HIV: a contemporary overview in the Australian context. <em>Pathology</em> 2023;55(5):610-620.</li>
+          <li><strong>[NYSDOH-2026]</strong> New York State Department of Health AIDS Institute. <em>HIV Testing</em>. Publicado: 4 de agosto de 2026.</li>
+          <li><strong>[SAAG-2021]</strong> Saag MS. HIV Infection — Screening, Diagnosis, and Treatment. <em>N Engl J Med</em> 2021;384:2131-43.</li>
+          <li><strong>[HIVMA-2024]</strong> Horberg M, Thompson M, Agwu A, Colasanti J, et al. Primary Care Guidance for Providers Who Care for Persons With Human Immunodeficiency Virus: 2024 Update by the HIVMA of IDSA. <em>Clin Infect Dis</em> 2024; ciae479.</li>
+          <li><strong>[GARCÍA-2011]</strong> García F, Álvarez M, Bernal C, Chueca N, Guillot V. Diagnóstico de laboratorio de la infección por el VIH, del tropismo viral y de las resistencias a los antirretrovirales. <em>Enferm Infecc Microbiol Clin</em> 2011;29(4):297-307. (Referencia secundaria, marcada como "legado").</li>
+        </ol>
+        <p style="margin-top:12px; font-style:italic; color:var(--text-muted);">
+          * Documentos expresamente excluidos de los algoritmos: Pediatric Clinics of North America (1991).
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div>
+          <p><strong>VIH Clínica Pro</strong> — Versión 2.4.0 (Octubre 2026)</p>
+          <p>Diseñado con estándares de alta accesibilidad (WCAG AA), responsive y privacidad local.</p>
+        </div>
+        <div style="text-align:right;">
+          <p>Los criterios deben ser validados por el equipo clínico y de laboratorio con la normativa local vigente antes de su uso con pacientes.</p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- =========================================================================
+       SCRIPT VANILLA JAVASCRIPT
+       ========================================================================= -->
+  <script>
+    /**
+     * CONFIGURACIÓN INSTITUCIONAL DE LA HERRAMIENTA
+     * Permite ajustar parámetros locales conforme a normativas de cada centro.
+     */
+    const CONFIG_CLINICA = {
+      // Nombre de la norma local aplicable reportada en notas
+      normaLocalNombre: "Norma Oficial Mexicana / Lineamientos InDRE 2017", // [MEDINA-2021]
+      // Umbral para definir posible pérdida de seguimiento tras cita agendada no atendida
+      // Las fuentes bibliográficas principales no definen un número exacto de días:
+      diasPerdidaSeguimiento: 90 // [FALTA EN FUENTES: Parámetro configurable asignado a 90 días]
+    };
+
+    /**
+     * Estado reactivo y persistencia local
+     */
+    let pacientes = [];
+
+    // Clave para localStorage
+    const STORAGE_KEY = "vih_clinica_pacientes_db_v1";
+
+    // Intentar cargar pacientes de localStorage con try/catch resiliente
+    function cargarPacientesLocal() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          pacientes = JSON.parse(raw);
+        } else {
+          pacientes = [];
+        }
+      } catch (err) {
+        console.warn("No se pudo leer localStorage (modo privado o almacenamiento bloqueado). Se usará memoria volátil.", err);
+        pacientes = [];
+      }
+    }
+
+    function guardarPacientesLocal() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(pacientes));
+      } catch (err) {
+        console.warn("No se pudo guardar en localStorage.", err);
+        alert("Aviso: No fue posible guardar los cambios en el almacenamiento local del navegador. Verifique cuotas o permisos.");
+      }
+    }
+
+    // Inicialización del sistema
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarPacientesLocal();
+      renderizarTablaPacientes();
+      actualizarIndicadores();
+      inicializarTema();
+    });
+
+    /**
+     * Manejo de Tema (Oscuro / Claro)
+     */
+    function inicializarTema() {
+      const toggle = document.getElementById("btnThemeToggle");
+      toggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        if (currentTheme === "dark") {
+          document.documentElement.removeAttribute("data-theme");
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      });
+    }
+
+    /**
+     * Acordeón accesible
+     */
+    function toggleAcc(headerElem) {
+      const item = headerElem.closest(".acc-item");
+      const isOpen = item.classList.contains("open");
+      // Opcional: cerrar los demás
+      item.classList.toggle("open", !isOpen);
+    }
+
+    /**
+     * MÓDULO 1: LÓGICA DEL ASISTENTE DIAGNÓSTICO
+     */
+    function actualizarAsistente() {
+      const sospechaAguda = document.getElementById("diagSospechaAguda").value;
+      const normaWb = document.getElementById("normaWbToggle").value;
+      const alertaAguda = document.getElementById("alertaAgudaSimultanea");
+      const boxWb = document.getElementById("boxStepWB");
+
+      if (sospechaAguda === "si") {
+        alertaAguda.style.display = "flex";
+      } else {
+        alertaAguda.style.display = "none";
+      }
+
+      if (normaWb === "si") {
+        boxWb.style.display = "block";
+      } else {
+        boxWb.style.display = "none";
+      }
+
+      evaluarAlgoritmo();
+    }
+
+    function evaluarAlgoritmo() {
+      const step1 = document.getElementById("step1Result").value;
+      const step2 = document.getElementById("step2Result").value;
+      const step3 = document.getElementById("step3Result").value;
+      const boxStep2 = document.getElementById("boxStep2");
+      const boxStep3 = document.getElementById("boxStep3");
+      const wiz1 = document.getElementById("wizStep1");
+      const wiz2 = document.getElementById("wizStep2");
+      const wiz3 = document.getElementById("wizStep3");
+      const resBox = document.getElementById("resultadoDiagnosticoBox");
+
+      const sospechaAguda = document.getElementById("diagSospechaAguda").value === "si";
+      const expoPrev = document.getElementById("diagExposicionPrev").value;
+      const esEmbarazo = document.getElementById("diagEmbarazo").value === "si";
+      const normaWb = document.getElementById("normaWbToggle").value === "si";
+      const wbRes = document.getElementById("stepWbResult").value;
+
+      // Reseteo visual
+      boxStep2.style.display = "none";
+      boxStep3.style.display = "none";
+      wiz1.className = "wizard-step active";
+      wiz2.className = "wizard-step";
+      wiz3.className = "wizard-step";
+      resBox.style.display = "none";
+      resBox.innerHTML = "";
+
+      if (!step1) return;
+
+      // PASO 1: NO REACTIVO
+      if (step1 === "no_reactivo") {
+        wiz1.className = "wizard-step completed";
+        resBox.style.display = "block";
+
+        let html = `
+          <div class="alert alert-success">
+            <span style="font-size:1.5rem" aria-hidden="true">✓</span>
+            <div>
+              <strong>Inmunoensayo No Reactivo [NYSDOH A1]:</strong> No se detectó antígeno p24 ni anticuerpos VIH-1/2.<br>
+              <div style="margin-top:6px; font-size:0.8125rem;">
+                • <strong>Criterio clínico:</strong> Este resultado <em>no descarta infección</em> si la exposición ocurrió antes del fin de la ventana diagnóstica (18-45 días para 4.ª gen) [NYSDOH p.8].<br>
+                ${sospechaAguda ? '• <strong style="color:var(--danger)">Alerta por sospecha aguda:</strong> Solicitar ARN-NAAT cualitativo de inmediato [NYSDOH A2]. Ver Medina-De la Garza (2021) sobre pruebas no reactivas en fase aguda.<br>' : ''}
+                • Si existe riesgo persistente, ofrecer consejería de reducción de daños, preservativos y profilaxis pre-exposición (PrEP) o post-exposición (PEP) [NYSDOH A3].
+              </div>
+            </div>
+          </div>
+        `;
+        resBox.innerHTML = html;
+        return;
+      }
+
+      // PASO 1: REACTIVO
+      if (step1 === "reactivo") {
+        wiz1.className = "wizard-step completed";
+        wiz2.className = "wizard-step active";
+        boxStep2.style.display = "block";
+
+        if (!step2) {
+          resBox.style.display = "block";
+          resBox.innerHTML = `
+            <div class="alert alert-warning">
+              <span aria-hidden="true">⏳</span>
+              <div class="alert-text">
+                <strong>Resultado preliminar reactivo [NYSDOH A1]:</strong> Requiere confirmación mediante Paso 2 (Diferenciador de anticuerpos VIH-1/VIH-2).
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // PASO 2: DIFERENCIADOR REACTIVO A TIPOS
+        if (step2 === "vih1_pos" || step2 === "vih2_pos" || step2 === "ambos_pos") {
+          wiz2.className = "wizard-step completed";
+          resBox.style.display = "block";
+
+          let diagnosticoTxt = "";
+          if (step2 === "vih1_pos") diagnosticoTxt = "Infección por VIH-1 confirmada [NYSDOH A1]";
+          if (step2 === "vih2_pos") diagnosticoTxt = "Infección por VIH-2 confirmada [NYSDOH A1]";
+          if (step2 === "ambos_pos") diagnosticoTxt = "Anticuerpos VIH detectados sin tipificar (Reactivo VIH-1 y VIH-2) [NYSDOH A1]";
+
+          let wbNota = "";
+          if (normaWb) {
+            wbNota = `<div style="margin-top:8px; padding:6px 8px; background:var(--surface-subtle); border-radius:var(--radius-sm); font-size:0.75rem;">
+              <strong>Registro de norma local (Western Blot):</strong> Registrado como ${wbRes === "wb_pos" ? "Positivo" : wbRes === "wb_ind" ? "Indeterminado" : "Negativo"}. Conforme a Medina et al. (2021), un WB no reactivo en presencia de 4.ª generación reactiva o ARN positivo nunca debe usarse para descartar la infección.
+            </div>`;
+          }
+
+          let embarazadaNota = "";
+          if (esEmbarazo) {
+            embarazadaNota = `<div class="alert alert-warning" style="margin-top:8px;">
+              <strong>Embarazo en curso [NYSDOH A2]:</strong> No demorar la vinculación al tratamiento antirretroviral; derivar inmediatamente a atención obstétrica especializada en VIH.
+            </div>`;
+          }
+
+          resBox.innerHTML = `
+            <div class="alert alert-danger">
+              <span style="font-size:1.5rem" aria-hidden="true">⚠️</span>
+              <div>
+                <strong>${diagnosticoTxt}</strong>
+                <div style="margin-top:6px; font-size:0.8125rem;">
+                  • Recomendar inicio rápido de TAR (el mismo día o dentro de los 7 días) [HIVMA-2024; SAAG-2021; NYSDOH].<br>
+                  • Priorizar consejería sobre prevención de transmisión y evaluación basal inmediata [HIVMA].<br>
+                  • Si ambos anticuerpos son positivos: positivo presuntivo; repetir el algoritmo en 2-4 semanas o solicitar ARN-NAAT para definir el tipo [NYSDOH p.14].
+                  ${wbNota}
+                  ${embarazadaNota}
+                </div>
+              </div>
+            </div>
+          `;
+          habilitarTarjetaTar(true);
+          return;
+        }
+
+        // PASO 2: NO REACTIVO O INDETERMINADO -> PROCEDER A PASO 3
+        if (step2 === "no_reactivo" || step2 === "indeterminado") {
+          wiz2.className = "wizard-step completed";
+          wiz3.className = "wizard-step active";
+          boxStep3.style.display = "block";
+
+          if (!step3) {
+            resBox.style.display = "block";
+            resBox.innerHTML = `
+              <div class="alert alert-warning">
+                <span aria-hidden="true">⏳</span>
+                <div class="alert-text">
+                  <strong>Paso 2 No Reactivo o Indeterminado:</strong> Se requiere Paso 3: ARN-NAAT cualitativo para confirmar o descartar infección aguda [NYSDOH A*].
+                </div>
+              </div>
+            `;
+            return;
+          }
+
+          wiz3.className = "wizard-step completed";
+          resBox.style.display = "block";
+
+          if (step3 === "arn_detectado" || step3 === "arn_cuant_alto") {
+            // ARN POSITIVO -> INFECCIÓN AGUDA
+            resBox.innerHTML = `
+              <div class="alert alert-danger">
+                <span style="font-size:1.5rem" aria-hidden="true">🚨</span>
+                <div>
+                  <strong>Infección Aguda por VIH-1 Confirmada por Ácidos Nucleicos [NYSDOH A1; SAAG-2021]:</strong>
+                  <div style="margin-top:6px; font-size:0.8125rem;">
+                    • Se detectó ARN viral en presencia de serología negativa o indeterminada (periodo temprano de seroconversión).<br>
+                    • <strong>Acción clínica inmediata:</strong> Iniciar TAR rápido y consejería estricta de prevención de transmisión [NYSDOH A1; HIVMA-2024].<br>
+                    • ${esEmbarazo ? '<strong style="color:var(--danger)">Embarazo:</strong> Iniciar TAR inmediato sin esperar confirmación serológica [NYSDOH A2]. Derivar a obstetricia de alto riesgo.' : 'Tomar muestras basales (ARN cuant, genotipo) antes de la primera dosis de TAR [WILLIAMS p.614].'}
+                  </div>
+                </div>
+              </div>
+            `;
+            habilitarTarjetaTar(true);
+          } else if (step3 === "arn_no_detectado") {
+            // ARN NEGATIVO -> FALSO POSITIVO PROBABLE
+            let alertaPrEP = "";
+            if (expoPrev !== "ninguno") {
+              alertaPrEP = `
+                <div class="alert alert-warning" style="margin-top:8px;">
+                  <strong>Alerta de profilaxis/tratamiento previo [WILLIAMS pp.613-614; NYSDOH p.15]:</strong> En personas con PrEP reciente (particularmente cabotegravir inyectable en los últimos 12 meses o PrEP oral en los últimos 3 meses), el ARN viral puede encontrarse transitoriamente suprimido o indetectable. Valorar riesgo de exposición y repetir prueba con nueva muestra en 2-4 semanas antes de descartar de forma absoluta [HIVMA Tabla 4].
+                </div>
+              `;
+            }
+
+            resBox.innerHTML = `
+              <div class="alert alert-info">
+                <span style="font-size:1.5rem" aria-hidden="true">ℹ️</span>
+                <div>
+                  <strong>ARN No Detectado — Probable Tamizaje Falso Positivo [NYSDOH Fig. 2]:</strong>
+                  <div style="margin-top:6px; font-size:0.8125rem;">
+                    • El inmunoensayo inicial reactivo con diferenciador no reactivo y ARN no detectado indica generalmente ausencia de infección.<br>
+                    • Si el ensayo diferenciador fue indeterminado para VIH-2, considerar prueba molecular de ARN VIH-2 o repetir en 2-4 semanas [NYSDOH].
+                    ${alertaPrEP}
+                  </div>
+                </div>
+              </div>
+            `;
+            habilitarTarjetaTar(false);
+          } else if (step3 === "arn_cuant_bajo") {
+            resBox.innerHTML = `
+              <div class="alert alert-warning">
+                <span aria-hidden="true">⚠️</span>
+                <div>
+                  <strong>ARN cuantitativo bajo (&lt;200 copias/mL) sin anticuerpos [NYSDOH Box 2, A2]:</strong>
+                  <div style="margin-top:6px; font-size:0.8125rem;">
+                    • No es diagnóstico concluyente de infección aguda. Posible falso positivo de carga viral o viremia incipiente.<br>
+                    • <strong>Conducta:</strong> Repetir ARN y Ag/Ac en 1 a 2 semanas para documentar cinética viral en aumento frente a artefacto técnico [NYSDOH Box 2, A2].
+                  </div>
+                </div>
+              </div>
+            `;
+            habilitarTarjetaTar(false);
+          }
+        }
+      }
+    }
+
+    /**
+     * CALCULADORA DE VENTANAS DIAGNÓSTICAS
+     */
+    function calcularVentana() {
+      const fechaVal = document.getElementById("calcFechaExpo").value;
+      const tipo = document.getElementById("calcTipoPrueba").value;
+      const resElem = document.getElementById("calcResultado");
+
+      if (!fechaVal) {
+        resElem.style.display = "none";
+        return;
+      }
+
+      const expoDate = new Date(fechaVal);
+      const hoy = new Date();
+      const diffTime = hoy - expoDate;
+      const diasTranscurridos = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diasTranscurridos < 0) {
+        resElem.style.display = "block";
+        resElem.innerHTML = `<div class="alert alert-warning">La fecha de exposición no puede ser posterior a la fecha actual del dispositivo.</div>`;
+        return;
+      }
+
+      let limInf = 0;
+      let limSup = 0;
+      let nombrePrueba = "";
+
+      switch (tipo) {
+        case "naat":
+          limInf = 10;
+          limSup = 33;
+          nombrePrueba = "ARN-NAAT Cualitativo / Diagnóstico";
+          break;
+        case "cuarta_lab":
+          limInf = 18;
+          limSup = 45;
+          nombrePrueba = "Inmunoensayo Ag/Ac 4.ª Generación (Laboratorio)";
+          break;
+        case "poc_combo":
+          limInf = 18;
+          limSup = 90;
+          nombrePrueba = "Ag/Ac POC rápido en punción digital";
+          break;
+        case "ac_poc":
+          limInf = 23;
+          limSup = 90;
+          nombrePrueba = "Prueba de anticuerpos solos / Autoprueba";
+          break;
+      }
+
+      // Sugerencia de fecha de repetición (fecha de exposición + límite superior)
+      const fechaSugerida = new Date(expoDate);
+      fechaSugerida.setDate(fechaSugerida.getDate() + limSup);
+      const fechaSugeridaStr = fechaSugerida.toISOString().split("T")[0];
+
+      let estadoHtml = "";
+
+      if (diasTranscurridos < limInf) {
+        // Demasiado pronto
+        estadoHtml = `
+          <div class="alert alert-danger">
+            <span aria-hidden="true">⛔</span>
+            <div>
+              <strong>Demasiado pronto (${diasTranscurridos} días transcurridos):</strong><br>
+              Se encuentra dentro del periodo de eclipse analítico para ${nombrePrueba} (límite inferior: ${limInf} días). Un resultado no reactivo <em>no es confiable</em>.<br>
+              <strong>Fecha recomendada para alcanzar ventana diagnóstica completa:</strong> ${fechaSugeridaStr} (a los ${limSup} días).
+            </div>
+          </div>
+        `;
+      } else if (diasTranscurridos >= limInf && diasTranscurridos < limSup) {
+        // Ventana en curso
+        estadoHtml = `
+          <div class="alert alert-warning">
+            <span aria-hidden="true">⏳</span>
+            <div>
+              <strong>Ventana en curso (${diasTranscurridos} días transcurridos):</strong><br>
+              La prueba puede comenzar a detectar reactividad, pero un resultado negativo en este intervalo no excluye definitivamente la transmisión [NYSDOH p.8].<br>
+              <strong>Acción:</strong> Si resulta no reactivo, debe repetirse el estudio a partir del <strong>${fechaSugeridaStr}</strong> (${limSup} días post-exposición).
+            </div>
+          </div>
+        `;
+      } else {
+        // Ventana cumplida
+        estadoHtml = `
+          <div class="alert alert-success">
+            <span aria-hidden="true">✓</span>
+            <div>
+              <strong>Ventana diagnóstica cumplida (${diasTranscurridos} días transcurridos):</strong><br>
+              Ha transcurrido el tiempo necesario para la sensibilidad máxima de ${nombrePrueba} (rango: ${limInf}-${limSup} días). Un resultado no reactivo descarta infección atribuible a esta exposición con alta fiabilidad, siempre que no existan profilaxis (PrEP/PEP) que alarguen la seroconversión [WILLIAMS p.612].
+            </div>
+          </div>
+        `;
+      }
+
+      resElem.style.display = "block";
+      resElem.innerHTML = estadoHtml;
+    }
+
+    /**
+     * MÓDULO 2 Y 3: PERSISTENCIA Y REGISTRO DE PACIENTES
+     */
+    function scrollToRegister() {
+      document.getElementById("pacientes").scrollIntoView({ behavior: "smooth" });
+      document.getElementById("pFolio").focus();
+    }
+
+    function guardarPaciente(event) {
+      event.preventDefault();
+      const folio = document.getElementById("pFolio").value.trim();
+      const edad = parseInt(document.getElementById("pEdad").value, 10);
+      const fechaExpo = document.getElementById("pFechaExpo").value;
+      const gestacion = document.getElementById("pGestacion").value;
+      const prep = document.getElementById("pPrEP").value;
+      const estadoDiag = document.getElementById("pEstadoDiag").value;
+      const sintomas = document.getElementById("pSintomas").value.trim();
+
+      const chkConsent = document.getElementById("chkOrdenConsent").checked;
+      const chkInf = document.getElementById("chkResultadoInf").checked;
+      const chkTrans = document.getElementById("chkTransmision").checked;
+      const chkVinc = document.getElementById("chkVinculacion").checked;
+      const chkInc = document.getElementById("chkInconcluso").checked;
+
+      if (!folio) {
+        alert("El folio o código anonimizado es obligatorio.");
+        return;
+      }
+
+      // Validar si existe
+      let existente = pacientes.find(p => p.folio.toLowerCase() === folio.toLowerCase());
+      if (existente) {
+        if (!confirm(`El folio "${folio}" ya existe. ¿Desea sobrescribir la información básica?`)) {
+          return;
+        }
+        existente.edad = edad;
+        existente.fechaExpo = fechaExpo;
+        existente.gestacion = gestacion;
+        existente.prep = prep;
+        existente.estadoDiag = estadoDiag;
+        existente.sintomas = sintomas;
+        existente.checklist = { chkConsent, chkInf, chkTrans, chkVinc, chkInc };
+      } else {
+        const nuevo = {
+          folio,
+          edad,
+          fechaRegistro: new Date().toISOString().split("T")[0],
+          fechaExpo,
+          gestacion,
+          prep,
+          estadoDiag,
+          sintomas,
+          checklist: { chkConsent, chkInf, chkTrans, chkVinc, chkInc },
+          fechaInicioTar: "",
+          esquemaTar: "",
+          ultimaCargaViral: null,
+          fechaCargaViral: "",
+          ultimoCd4: null,
+          proximaCita: "",
+          genotipo: "",
+          checklistBasal: {},
+          historialCv: []
+        };
+        pacientes.push(nuevo);
+      }
+
+      guardarPacientesLocal();
+      renderizarTablaPacientes();
+      actualizarIndicadores();
+      alert(`Expediente con folio ${folio} almacenado correctamente.`);
+      document.getElementById("patientForm").reset();
+    }
+
+    /**
+     * DETERMINACIÓN DEL ESTADO CLÍNICO Y SEMÁFORO
+     */
+    function obtenerEstadoSemaforo(p) {
+      const hoy = new Date();
+
+      // Criterio de Falla Virológica: dos mediciones consecutivas > 200 copias/mL [HIVMA-2024; SAAG-2021]
+      if (p.historialCv && p.historialCv.length >= 2) {
+        const ult = p.historialCv[p.historialCv.length - 1];
+        const penult = p.historialCv[p.historialCv.length - 2];
+        if (ult.valor > 200 && penult.valor > 200) {
+          return { texto: "Falla virológica", clase: "status-red", icono: "🚨" };
+        }
+      } else if (p.ultimaCargaViral !== null && p.ultimaCargaViral > 200 && p.fechaInicioTar) {
+        // Alerta de viremia no suprimida en TAR
+        return { texto: "Viremia en TAR (>200 cp)", clase: "status-red", icono: "⚠️" };
+      }
+
+      // Citas
+      if (p.proximaCita) {
+        const fCita = new Date(p.proximaCita);
+        const diffDias = Math.floor((fCita - hoy) / (1000 * 60 * 60 * 24));
+
+        if (diffDias < -CONFIG_CLINICA.diasPerdidaSeguimiento) {
+          return { texto: "Posible pérdida seguimiento", clase: "status-red", icono: "⛔" };
+        }
+        if (diffDias < 0) {
+          return { texto: "Cita vencida", clase: "status-red", icono: "⏰" };
+        }
+        if (diffDias >= 0 && diffDias <= 7) {
+          return { texto: "Cita próxima (≤7d)", clase: "status-amber", icono: "📅" };
+        }
+      }
+
+      // Estados de diagnóstico y vinculación
+      if (p.estadoDiag === "en_diagnostico") {
+        return { texto: "En diagnóstico", clase: "status-blue", icono: "🔍" };
+      }
+      if (p.estadoDiag === "confirmado_vih1" || p.estadoDiag === "confirmado_vih2") {
+        if (!p.fechaInicioTar) {
+          return { texto: "En vinculación a TAR", clase: "status-amber", icono: "🔗" };
+        } else {
+          return { texto: "En seguimiento activo", clase: "status-green", icono: "✅" };
+        }
+      }
+      if (p.estadoDiag === "indeterminado") {
+        return { texto: "Muestra indeterminada", clase: "status-amber", icono: "❓" };
+      }
+      if (p.estadoDiag === "no_infectado") {
+        return { texto: "Descartado / No infectado", clase: "status-gray", icono: "✓" };
+      }
+
+      return { texto: "Regular", clase: "status-gray", icono: "•" };
+    }
+
+    /**
+     * RENDERIZAR TABLA DE PACIENTES
+     */
+    function renderizarTablaPacientes() {
+      const tbody = document.getElementById("tablaPacientesBody");
+      const filtroQ = document.getElementById("filtroBusqueda").value.toLowerCase();
+      const filtroEstado = document.getElementById("filtroEstado").value;
+      tbody.innerHTML = "";
+
+      const filtrados = pacientes.filter(p => {
+        const coincideQ = p.folio.toLowerCase().includes(filtroQ);
+        if (!coincideQ) return false;
+
+        if (filtroEstado === "todos") return true;
+        const sem = obtenerEstadoSemaforo(p);
+        if (filtroEstado === "en_diagnostico" && p.estadoDiag === "en_diagnostico") return true;
+        if (filtroEstado === "en_vinculacion" && sem.texto.includes("vinculación")) return true;
+        if (filtroEstado === "en_seguimiento" && sem.texto.includes("seguimiento activo")) return true;
+        if (filtroEstado === "cita_vencida" && sem.texto === "Cita vencida") return true;
+        if (filtroEstado === "falla_virologica" && sem.texto.includes("Falla")) return true;
+        if (filtroEstado === "perdida_seguimiento" && sem.texto.includes("pérdida")) return true;
+
+        return false;
+      });
+
+      if (filtrados.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:24px; color:var(--text-muted);">No se encontraron pacientes con los criterios de búsqueda.</td></tr>`;
+        return;
+      }
+
+      filtrados.forEach(p => {
+        const sem = obtenerEstadoSemaforo(p);
+        let diasInicioTar = "--";
+        if (p.fechaInicioTar && p.fechaRegistro) {
+          const dReg = new Date(p.fechaRegistro);
+          const dTar = new Date(p.fechaInicioTar);
+          diasInicioTar = Math.floor((dTar - dReg) / (1000 * 60 * 60 * 24)) + " d";
+        }
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${p.folio}</strong></td>
+          <td>${p.edad} a ${p.gestacion === 'si' ? '<span class="status-badge status-amber">Gestante</span>' : ''}</td>
+          <td>${formatearEstadoDiag(p.estadoDiag)}</td>
+          <td>${p.fechaInicioTar ? p.fechaInicioTar + ` (${diasInicioTar})` : '<span style="color:var(--text-muted)">Sin inicio</span>'}</td>
+          <td>
+            ${p.ultimaCargaViral !== null ? `<strong>${p.ultimaCargaViral}</strong> cp/mL` : '--'} / 
+            ${p.ultimoCd4 !== null ? `<strong>${p.ultimoCd4}</strong> CD4` : '--'}
+          </td>
+          <td>
+            <span class="status-badge ${sem.clase}" title="${sem.texto}">
+              <span aria-hidden="true">${sem.icono}</span> ${sem.texto}
+            </span>
+          </td>
+          <td>${p.proximaCita || '<span style="color:var(--text-muted)">No agendada</span>'}</td>
+          <td>
+            <button class="btn btn-secondary btn-sm" onclick="verDetallePaciente('${p.folio}')">Gestionar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarPaciente('${p.folio}')" title="Eliminar registro">✕</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function formatearEstadoDiag(st) {
+      switch (st) {
+        case "confirmado_vih1": return '<span style="color:var(--danger); font-weight:600;">VIH-1 Positivo</span>';
+        case "confirmado_vih2": return '<span style="color:var(--danger); font-weight:600;">VIH-2 Positivo</span>';
+        case "en_diagnostico": return '<span style="color:var(--info);">En diagnóstico</span>';
+        case "indeterminado": return '<span style="color:var(--warning);">Indeterminado</span>';
+        case "no_infectado": return '<span style="color:var(--success);">No infectado</span>';
+        default: return st;
+      }
+    }
+
+    /**
+     * GESTIÓN DETALLADA DE EXPEDIENTE (MÓDULO 3)
+     */
+    let pacienteActual = null;
+
+    function verDetallePaciente(folio) {
+      pacienteActual = pacientes.find(p => p.folio === folio);
+      if (!pacienteActual) return;
+
+      const card = document.getElementById("detallePacienteCard");
+      card.style.display = "block";
+      document.getElementById("detFolio").innerText = pacienteActual.folio;
+
+      document.getElementById("evFechaTar").value = pacienteActual.fechaInicioTar || "";
+      document.getElementById("evEsquemaTar").value = pacienteActual.esquemaTar || "";
+      document.getElementById("evCargaViral").value = pacienteActual.ultimaCargaViral !== null ? pacienteActual.ultimaCargaViral : "";
+      document.getElementById("evFechaCv").value = pacienteActual.fechaCargaViral || "";
+      document.getElementById("evCd4").value = pacienteActual.ultimoCd4 !== null ? pacienteActual.ultimoCd4 : "";
+      document.getElementById("evFechaCita").value = pacienteActual.proximaCita || "";
+      document.getElementById("evGenotipo").value = pacienteActual.genotipo || "";
+
+      renderizarChecklistBasal();
+      renderizarLineaTiempo();
+      evaluarAlertasSeguimiento();
+
+      // Si el paciente está confirmado, habilitar la tarjeta del Módulo 4
+      if (pacienteActual.estadoDiag === "confirmado_vih1" || pacienteActual.estadoDiag === "confirmado_vih2") {
+        habilitarTarjetaTar(true);
+      }
+
+      card.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function cerrarDetalle() {
+      document.getElementById("detallePacienteCard").style.display = "none";
+      pacienteActual = null;
+    }
+
+    function guardarEventosSeguimiento() {
+      if (!pacienteActual) return;
+
+      const fTar = document.getElementById("evFechaTar").value;
+      const esq = document.getElementById("evEsquemaTar").value.trim();
+      const cvVal = document.getElementById("evCargaViral").value;
+      const fCv = document.getElementById("evFechaCv").value;
+      const cd4Val = document.getElementById("evCd4").value;
+      const fCita = document.getElementById("evFechaCita").value;
+      const genot = document.getElementById("evGenotipo").value.trim();
+
+      pacienteActual.fechaInicioTar = fTar;
+      pacienteActual.esquemaTar = esq;
+      pacienteActual.fechaCargaViral = fCv;
+      pacienteActual.proximaCita = fCita;
+      pacienteActual.genotipo = genot;
+
+      if (cvVal !== "") {
+        const valNum = parseInt(cvVal, 10);
+        pacienteActual.ultimaCargaViral = valNum;
+        if (!pacienteActual.historialCv) pacienteActual.historialCv = [];
+        // Registrar en historial si hay fecha
+        pacienteActual.historialCv.push({
+          fecha: fCv || new Date().toISOString().split("T")[0],
+          valor: valNum
+        });
+      }
+
+      if (cd4Val !== "") {
+        pacienteActual.ultimoCd4 = parseInt(cd4Val, 10);
+      }
+
+      // Guardar checklist basal
+      guardarChecklistBasalState();
+
+      guardarPacientesLocal();
+      renderizarTablaPacientes();
+      renderizarLineaTiempo();
+      evaluarAlertasSeguimiento();
+      actualizarIndicadores();
+      alert("Expediente clínico actualizado con éxito.");
+    }
+
+    /**
+     * EVALUACIÓN AUTOMÁTICA DE ALERTAS CLÍNICAS (MÓDULO 3)
+     */
+    function evaluarAlertasSeguimiento() {
+      if (!pacienteActual) return;
+      const box = document.getElementById("alertasSeguimientoBox");
+      box.innerHTML = "";
+      const hoy = new Date();
+
+      let alertas = [];
+
+      // 1. Alerta de Cita Vencida
+      if (pacienteActual.proximaCita) {
+        const fC = new Date(pacienteActual.proximaCita);
+        if (fC < hoy) {
+          alertas.push(`
+            <div class="alert alert-danger">
+              <span aria-hidden="true">⏰</span>
+              <div class="alert-text">
+                <strong>Cita de seguimiento vencida (${pacienteActual.proximaCita}):</strong> Paciente inasistente. Sugerir llamada telefónica inmediata o navegación clínica para retención en el cuidado [SAAG p.2141; HIVMA].
+              </div>
+            </div>
+          `);
+        }
+      } else if (pacienteActual.estadoDiag.includes("confirmado") && !pacienteActual.fechaInicioTar) {
+        alertas.push(`
+          <div class="alert alert-warning">
+            <span aria-hidden="true">⚠️</span>
+            <div class="alert-text">
+              <strong>Alerta de vinculación:</strong> Paciente con diagnóstico confirmado sin cita de inicio rápido agendada. Meta: evaluación basal dentro de 1 semana [SAAG p.2141].
+            </div>
+          </div>
+        `);
+      }
+
+      // 2. Alerta de Inmunodeficiencia Avanzada (CD4 < 200 y < 100)
+      if (pacienteActual.ultimoCd4 !== null) {
+        if (pacienteActual.ultimoCd4 < 100) {
+          alertas.push(`
+            <div class="alert alert-danger">
+              <span aria-hidden="true">🚨</span>
+              <div class="alert-text">
+                <strong>CD4 Severamente Bajo (&lt; 100 células/µL) [HIVMA Tablas 1 y 4; SAAG Tabla 3]:</strong><br>
+                • Iniciar profilaxis contra <em>Pneumocystis jirovecii</em> (TMP-SMX) [SAAG p.2140].<br>
+                • <strong>Tamizaje obligatorio de antígeno criptocócico sérico:</strong> Si es positivo, descartar meningitis y tratar según guía.<br>
+                • Evaluar fondo de ojo por oftalmólogo (descarte de retinitis por CMV).
+              </div>
+            </div>
+          `);
+        } else if (pacienteActual.ultimoCd4 < 200) {
+          alertas.push(`
+            <div class="alert alert-warning">
+              <span aria-hidden="true">⚠️</span>
+              <div class="alert-text">
+                <strong>Inmunodeficiencia Severa (CD4 &lt; 200 células/µL) [HIVMA Tablas 1 y 4]:</strong><br>
+                • Indicar profilaxis primaria contra <em>Pneumocystis jirovecii</em> (TMP-SMX 1 tableta diaria o 3 veces/sem).<br>
+                • Solicitar serología IgG para <em>Toxoplasma gondii</em>.
+              </div>
+            </div>
+          `);
+        }
+      }
+
+      // 3. Falla virológica o Blip
+      if (pacienteActual.ultimaCargaViral !== null && pacienteActual.fechaInicioTar) {
+        if (pacienteActual.ultimaCargaViral > 200) {
+          alertas.push(`
+            <div class="alert alert-danger">
+              <span aria-hidden="true">⚡</span>
+              <div class="alert-text">
+                <strong>Viremia &gt; 200 copias/mL en paciente con TAR [HIVMA p.16; SAAG p.2138]:</strong><br>
+                Si se confirma con una segunda determinación consecutiva, cumple criterio de <strong>Falla Virológica</strong>. Solicitar prueba de resistencia genotípica (PR/RT e integrasa) mientras el paciente mantenga el esquema o dentro de las 4 semanas de suspensión [HIVMA].
+              </div>
+            </div>
+          `);
+        } else if (pacienteActual.ultimaCargaViral > 50 && pacienteActual.ultimaCargaViral <= 200) {
+          alertas.push(`
+            <div class="alert alert-info">
+              <span aria-hidden="true">ℹ️</span>
+              <div class="alert-text">
+                <strong>Viremia de bajo nivel / Blip viral (50–200 copias/mL) [HIVMA; SAAG]:</strong><br>
+                Evaluar adherencia a la medicación, tolerancia e interacciones fármaco-fármaco. Repetir la carga viral en 2 a 4 semanas. El paciente mantiene la condición de intransmisibilidad sexual (I=I) [HIVMA].
+              </div>
+            </div>
+          `);
+        }
+      }
+
+      box.innerHTML = alertas.join("");
+    }
+
+    /**
+     * CÁLCULO DE FECHAS SUGERIDAS DE CONTROL [HIVMA p.16 y Tabla 5]
+     */
+    function calcularSiguientesControles() {
+      if (!pacienteActual || !pacienteActual.fechaInicioTar) {
+        alert("Para calcular las fechas de control de seguimiento, primero registre la fecha de inicio de TAR.");
+        return;
+      }
+
+      const fTar = new Date(pacienteActual.fechaInicioTar);
+      const cvVal = pacienteActual.ultimaCargaViral;
+
+      // Carga viral: a las 2-4 semanas (máx 8 semanas) del inicio
+      let cvSugerida1 = new Date(fTar);
+      cvSugerida1.setDate(cvSugerida1.getDate() + 28); // 4 semanas
+
+      let mensaje = `Cálculo de intervalos de monitorización [HIVMA-2024 Tabla 5]:
+
+`;
+      mensaje += `• 1.ª Carga Viral post-TAR: entre las semanas 2 y 4 (máximo 8 semanas) -> Sugerida: ${cvSugerida1.toISOString().split("T")[0]}
+`;
+      mensaje += `• Química sanguínea (función renal/hepática): a los 1-2 meses post-inicio.
+`;
+
+      if (cvVal !== null && cvVal < 50) {
+        mensaje += `• En supresión virológica estable (<1 año): Carga viral cada 3 a 4 meses.
+`;
+        mensaje += `• Si la supresión se mantiene > 1 año y CD4 > 300: intervalo ampliable a cada 6 meses [HIVMA].
+`;
+      } else {
+        mensaje += `• Si no hay supresión (<200 copias): Carga viral cada 4 a 8 semanas hasta lograr indetectabilidad [HIVMA].
+`;
+      }
+
+      alert(mensaje);
+    }
+
+    /**
+     * CHECKLIST BASAL EDITABLE [HIVMA Tablas 1 y 4]
+     */
+    const ITEMS_BASALES = [
+      { id: "b_cd4_cv", txt: "CD4 basal y Carga Viral plasmática confirmatoria" },
+      { id: "b_genotipo", txt: "Genotipo de resistencias basal (PR/RT; INSTI si sospecha)" },
+      { id: "b_hemograma", txt: "Biometría hemática completa con diferencial" },
+      { id: "b_quimica", txt: "Perfil renal (Creatinina/eGFR) y hepático (AST/ALT/Bilirrubinas)" },
+      { id: "b_lipidos_glu", txt: "Perfil lipídico y Glucosa plasmática / HbA1c" },
+      { id: "b_ego", txt: "Examen general de orina (EGO / Proteinuria)" },
+      { id: "b_its", txt: "Tamizaje de Sífilis (RPR/VDRL) y Chlamydia/Gonorrea (NAAT 3 sitios)" },
+      { id: "b_tb", txt: "Cribado de TB latente (IGRA o PPD)" },
+      { id: "b_hepa", txt: "Serologías Hepatitis A (IgG), B (HBsAg, HBsAb, HBcAb) y C (Ac / ARN)" },
+      { id: "b_varicela_saram", txt: "Serología de Varicela y títulos de Sarampión (si nacido ≥1957)" },
+      { id: "b_cripto", txt: "Antígeno Criptocócico sérico (Obligatorio si CD4 < 100)" },
+      { id: "b_toxo", txt: "Toxoplasma IgG (Obligatorio si CD4 < 200)" },
+      { id: "b_hla", txt: "HLA-B*5701 (Si se contempla uso futuro de Abacavir)" },
+      { id: "b_salud_integral", txt: "Cribado de Salud Integral (PHQ-9 depresión, consumo de sustancias)" }
+    ];
+
+    function renderizarChecklistBasal() {
+      const container = document.getElementById("checklistBasalEditable");
+      container.innerHTML = "";
+
+      const estadoGuardado = pacienteActual.checklistBasal || {};
+
+      ITEMS_BASALES.forEach(item => {
+        const checked = estadoGuardado[item.id] ? "checked" : "";
+        const label = document.createElement("label");
+        label.className = "checklist-item";
+        label.innerHTML = `
+          <input type="checkbox" id="${item.id}" ${checked} onchange="guardarChecklistBasalState()">
+          <span>${item.txt}</span>
+        `;
+        container.appendChild(label);
+      });
+    }
+
+    function guardarChecklistBasalState() {
+      if (!pacienteActual) return;
+      if (!pacienteActual.checklistBasal) pacienteActual.checklistBasal = {};
+      ITEMS_BASALES.forEach(item => {
+        const el = document.getElementById(item.id);
+        if (el) pacienteActual.checklistBasal[item.id] = el.checked;
+      });
+      guardarPacientesLocal();
+    }
+
+    /**
+     * RENDERIZAR LÍNEA DE TIEMPO
+     */
+    function renderizarLineaTiempo() {
+      const container = document.getElementById("lineaTiempo");
+      container.innerHTML = "";
+      if (!pacienteActual) return;
+
+      let eventos = [];
+
+      if (pacienteActual.fechaRegistro) {
+        eventos.push({
+          fecha: pacienteActual.fechaRegistro,
+          titulo: "Ingreso / Registro inicial",
+          detalle: `Diagnóstico: ${pacienteActual.estadoDiag}`
+        });
+      }
+      if (pacienteActual.fechaExpo) {
+        eventos.push({
+          fecha: pacienteActual.fechaExpo,
+          titulo: "Fecha estimada de exposición / Síntomas",
+          detalle: pacienteActual.sintomas || "Exposición de riesgo documentada"
+        });
+      }
+      if (pacienteActual.fechaInicioTar) {
+        eventos.push({
+          fecha: pacienteActual.fechaInicioTar,
+          titulo: "Inicio de Tratamiento Antirretroviral (TAR)",
+          detalle: `Esquema: ${pacienteActual.esquemaTar || 'No especificado'}`
+        });
+      }
+      if (pacienteActual.historialCv && pacienteActual.historialCv.length > 0) {
+        pacienteActual.historialCv.forEach(h => {
+          eventos.push({
+            fecha: h.fecha,
+            titulo: `Carga Viral: ${h.valor} copias/mL`,
+            detalle: h.valor < 200 ? "Nivel de supresión virológica (I=I)" : "Viremia detectable (>200)"
+          });
+        });
+      }
+      if (pacienteActual.proximaCita) {
+        const esPasada = new Date(pacienteActual.proximaCita) < new Date();
+        eventos.push({
+          fecha: pacienteActual.proximaCita,
+          titulo: `Cita Programada ${esPasada ? '(Vencida)' : '(Próxima)'}`,
+          detalle: esPasada ? "Requiere rescate y contacto" : "Control de seguimiento clínico"
+        });
+      }
+
+      // Ordenar por fecha cronológica ascendente
+      eventos.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+      if (eventos.length === 0) {
+        container.innerHTML = `<div style="font-size:0.8125rem; color:var(--text-muted);">Sin hitos registrados en la línea de tiempo.</div>`;
+        return;
+      }
+
+      eventos.forEach(ev => {
+        const item = document.createElement("div");
+        item.className = "timeline-item";
+        item.innerHTML = `
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">${ev.fecha}</div>
+          <div class="timeline-title">${ev.titulo}</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">${ev.detalle}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    /**
+     * MÓDULO 4: CONTROL DE VISIBILIDAD DE TARJETAS TAR
+     */
+    function habilitarTarjetaTar(habilitar) {
+      const lock = document.getElementById("tarLockMessage");
+      const content = document.getElementById("tarContentBox");
+      if (habilitar) {
+        lock.style.display = "none";
+        content.style.display = "block";
+      } else {
+        lock.style.display = "block";
+        content.style.display = "none";
+      }
+    }
+
+    function forzarAperturaTar() {
+      habilitarTarjetaTar(true);
+    }
+
+    /**
+     * PANEL DE INDICADORES (KPIs Y GRÁFICO SVG)
+     */
+    function actualizarIndicadores() {
+      const total = pacientes.length;
+      document.getElementById("kpiTotal").innerText = total;
+
+      const hoy = new Date();
+      let vencidas = 0;
+      let suprimidos = 0;
+      let conCvTar = 0;
+      let sumaDias = 0;
+      let pacientesConTar = 0;
+
+      let recuentos = { suprimidos: 0, viremia: 0, sinCv: 0 };
+
+      pacientes.forEach(p => {
+        // Citas vencidas
+        if (p.proximaCita && new Date(p.proximaCita) < hoy) {
+          vencidas++;
+        }
+
+        // Días diagnóstico a TAR
+        if (p.fechaRegistro && p.fechaInicioTar) {
+          const d1 = new Date(p.fechaRegistro);
+          const d2 = new Date(p.fechaInicioTar);
+          const diff = Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+          if (diff >= 0) {
+            sumaDias += diff;
+            pacientesConTar++;
+          }
+        }
+
+        // Supresión viral
+        if (p.fechaInicioTar) {
+          if (p.ultimaCargaViral !== null) {
+            conCvTar++;
+            if (p.ultimaCargaViral < 200) {
+              suprimidos++;
+              recuentos.suprimidos++;
+            } else {
+              recuentos.viremia++;
+            }
+          } else {
+            recuentos.sinCv++;
+          }
+        }
+      });
+
+      document.getElementById("kpiVencidas").innerText = vencidas;
+      const pctSup = conCvTar > 0 ? Math.round((suprimidos / conCvTar) * 100) : 0;
+      document.getElementById("kpiSupresion").innerText = `${pctSup}%`;
+
+      const promDias = pacientesConTar > 0 ? Math.round(sumaDias / pacientesConTar) : "--";
+      document.getElementById("kpiDiasTar").innerText = promDias;
+
+      // Dibujar gráfico SVG simple
+      dibujarGraficoSvg(recuentos);
+    }
+
+    function dibujarGraficoSvg(data) {
+      const svg = document.getElementById("svgChart");
+      svg.innerHTML = "";
+
+      const total = data.suprimidos + data.viremia + data.sinCv;
+      if (total === 0) {
+        svg.innerHTML = `<text x="50%" y="50%" text-anchor="middle" fill="var(--text-muted)" font-size="12">Sin datos de pacientes en TAR</text>`;
+        return;
+      }
+
+      // Dibujar gráfico de barras apiladas o comparativas
+      const maxH = 100;
+      const wBar = 50;
+
+      const hSup = Math.round((data.suprimidos / total) * maxH);
+      const hVir = Math.round((data.viremia / total) * maxH);
+      const hSin = Math.round((data.sinCv / total) * maxH);
+
+      // Barra 1: Suprimidos
+      svg.innerHTML += `
+        <rect x="30" y="${110 - hSup}" width="${wBar}" height="${hSup}" fill="var(--success)" rx="4"/>
+        <text x="${30 + wBar/2}" y="${105 - hSup}" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="bold">${data.suprimidos}</text>
+        <text x="${30 + wBar/2}" y="125" text-anchor="middle" fill="var(--text-muted)" font-size="10">&lt;200 cp</text>
+      `;
+
+      // Barra 2: Viremia >200
+      svg.innerHTML += `
+        <rect x="110" y="${110 - hVir}" width="${wBar}" height="${hVir}" fill="var(--danger)" rx="4"/>
+        <text x="${110 + wBar/2}" y="${105 - hVir}" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="bold">${data.viremia}</text>
+        <text x="${110 + wBar/2}" y="125" text-anchor="middle" fill="var(--text-muted)" font-size="10">&gt;200 cp</text>
+      `;
+
+      // Barra 3: Sin CV reciente
+      svg.innerHTML += `
+        <rect x="190" y="${110 - hSin}" width="${wBar}" height="${hSin}" fill="var(--border-hover)" rx="4"/>
+        <text x="${190 + wBar/2}" y="${105 - hSin}" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="bold">${data.sinCv}</text>
+        <text x="${190 + wBar/2}" y="125" text-anchor="middle" fill="var(--text-muted)" font-size="10">Pendiente</text>
+      `;
+    }
+
+    /**
+     * IMPORTACIÓN / EXPORTACIÓN Y GESTIÓN DE DATOS
+     */
+    function exportarJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pacientes, null, 2));
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `vih_pacientes_anon_${new Date().toISOString().split("T")[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function exportarCSV() {
+      if (pacientes.length === 0) {
+        alert("No hay registros disponibles para exportar.");
+        return;
+      }
+
+      let csv = "Folio,Edad,Gestacion,EstadoDiagnostico,FechaRegistro,FechaInicioTAR,EsquemaTAR,UltimaCargaViral,UltimoCD4,ProximaCita
+";
+      pacientes.forEach(p => {
+        csv += `"${p.folio}",${p.edad},"${p.gestacion}","${p.estadoDiag}","${p.fechaRegistro}","${p.fechaInicioTar || ''}","${p.esquemaTar || ''}",${p.ultimaCargaViral || ''},${p.ultimoCd4 || ''},"${p.proximaCita || ''}"
+`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `vih_pacientes_anon_${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function importarJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            pacientes = parsed;
+            guardarPacientesLocal();
+            renderizarTablaPacientes();
+            actualizarIndicadores();
+            alert(`Se importaron ${parsed.length} registros exitosamente.`);
+          } else {
+            alert("El archivo JSON no contiene un arreglo válido de pacientes.");
+          }
+        } catch (err) {
+          alert("Error al interpretar el archivo JSON.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function eliminarPaciente(folio) {
+      if (!confirm(`¿Está seguro de eliminar de este navegador el registro con folio: ${folio}?`)) {
+        return;
+      }
+      pacientes = pacientes.filter(p => p.folio !== folio);
+      if (pacienteActual && pacienteActual.folio === folio) {
+        cerrarDetalle();
+      }
+      guardarPacientesLocal();
+      renderizarTablaPacientes();
+      actualizarIndicadores();
+    }
+
+    function borrarTodosLosDatos() {
+      if (confirm("ATENCIÓN: ¿Desea BORRAR TODOS los datos almacenados en este navegador? Esta acción no se puede deshacer.")) {
+        pacientes = [];
+        guardarPacientesLocal();
+        renderizarTablaPacientes();
+        actualizarIndicadores();
+        cerrarDetalle();
+        alert("Todos los datos locales han sido eliminados.");
+      }
+    }
+  </script>
+</body>
+</html>
